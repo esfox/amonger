@@ -36,8 +36,18 @@ export async function amonger(message)
 	{
 		if(emoji.name === '🛑')
 		{
-			message.delete();
-			return control.delete();
+			reactions.stop();
+			try
+			{
+				message.delete();
+				control.delete();
+			}
+			catch(error)
+			{
+				message.channel.send('Game has ended.');
+			}
+
+			return;
 		}
 
 		const toMute = emoji.name === '🔇';
