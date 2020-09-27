@@ -1,0 +1,26 @@
+{
+  "name": "amonger",
+  "version": "1.0.0",
+  "scripts": {
+		"start": "node -r esm -r dotenv/config bot",
+		"dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "https://github.com/esfox",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25"
+  },
+  "dependencies": {
+    "discord.js": "^12.3.1"
+	},
+	"nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules"
+    ],
+    "exec": "npm start",
+    "ext": "js"
+  }
+}
