@@ -3,6 +3,9 @@ import { MessageEmbed } from 'discord.js';
 /** @param {import('discord.js').Message} message */
 export async function amonger(message)
 {
+	if(message.content !== '!amonger')
+		return;
+
 	if(! message.member.voice.channel)
 		return message.channel.send('You are not in a voice channel. Join a voice channel first.');
 
