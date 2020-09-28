@@ -6,12 +6,21 @@ export async function amonger(message)
 	if(message.content !== '!amonger')
 		return;
 
-	if(! message.member.voice.channel)
+	const voiceChannel = message.member.voice.channel;
+	if(! voiceChannel)
 		return message.channel.send('You are not in a voice channel. Join a voice channel first.');
+
+	if(message.client.started && message.client.started[voiceChannel.id])
+		return message.channel.send('A game was already started in that voice channel.');
+
+	if(! message.client.started)
+		message.client.started = {};
+
+	message.client.started[voiceChannel.id] = true;
 
 	const embed = new MessageEmbed()
 		.setColor('#FFDE2A')
-		.setTitle(`Among Us started in [🔊 ${message.member.voice.channel.name}]`)
+		.setTitle(`Among Us started in [🔊 ${voiceChannel.name}]`)
 		.setDescription(
 			'Click 🔇 to mute everyone.\n'
 			+ 'Click 🗣️ to unmute everyone.\n'
@@ -36,11 +45,12 @@ export async function amonger(message)
 	{
 		if(emoji.name === '🛑')
 		{
+			delete message.client.started[voiceChannel.id];
 			reactions.stop();
 			try
 			{
-				message.delete();
-				control.delete();
+				await message.delete();
+				await control.delete();
 			}
 			catch(error)
 			{
