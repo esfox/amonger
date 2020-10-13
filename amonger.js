@@ -63,10 +63,7 @@ export async function amonger(message)
 		const toMute = emoji.name === '🔇';
 		const members = [ ...message.member.voice.channel.members.values() ];
 		for(const member of members)
-		{
 			await member.voice.setMute(toMute);
-			await Promise(resolve => setTimeout(resolve, 200));
-		}
 	};
 
 	reactions.on('collect', onReact);
