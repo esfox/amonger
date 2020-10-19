@@ -61,25 +61,9 @@ export async function amonger(message)
 		}
 
 		const toMute = emoji.name === '🔇';
-		try
-		{
-			await voiceChannel.overwritePermissions(
-			[
-				{
-					id: message.guild.roles.everyone.id,
-					[toMute ? 'deny' : 'allow']: 'SPEAK',
-				}
-			]);
-		}
-		catch(error)
-		{
-			console.error(error);
-			message.channel.send('Cannot mute the voice channel.');
-		}
-
-		// const members = [ ...message.member.voice.channel.members.values() ];
-		// for(const member of members)
-		// 	await member.voice.setMute(toMute);
+		const members = [ ...message.member.voice.channel.members.values() ];
+		for(const member of members)
+			await member.voice.setMute(toMute);
 	};
 
 	reactions.on('collect', onReact);
