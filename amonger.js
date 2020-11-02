@@ -49,7 +49,7 @@ export async function amonger(message)
 			reactions.stop();
 			try
 			{
-				await message.delete();
+				// await message.delete();
 				await control.delete();
 			}
 			catch(error)
